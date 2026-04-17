@@ -115,8 +115,9 @@ export default function ChatBot({ city }) {
               <p className="text-xs text-muted font-mono">
                 {city ? `Context: ${city}` : "No city selected"}
               </p>
-            </div>
-            <div className="ml-auto w-2 h-2 rounded-full bg-teal animate-pulse-slow" />
+            </div> 
+            <button onClick={() => setOpen(!open)} className="ml-auto border-2 px-2 rounded-lg border-slate-700">X</button>
+            <div className="ml-2 w-2 h-2 rounded-full bg-teal animate-pulse-slow"></div> 
           </div>
 
           {/* Messages */}
