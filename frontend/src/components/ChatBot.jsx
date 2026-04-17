@@ -65,12 +65,13 @@ export default function ChatBot({ city }) {
     if (!input.trim() || loading) return;
 
     const userMsg = { role: "user", content: input.trim() };
-    setMessages((prev) => [...prev, userMsg]);
+    const updatedMessages = [...messages, userMsg];
+    setMessages(updatedMessages);
     setInput("");
     setLoading(true);
 
     try {
-      const data = await sendChat(input.trim(), city, chatId);
+      const data = await sendChat(input.trim(), city, chatId, updatedMessages);
       setChatId(data.chatId);
       setMessages((prev) => [
         ...prev,

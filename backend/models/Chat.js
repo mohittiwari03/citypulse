@@ -9,6 +9,10 @@ const chatSchema = new mongoose.Schema(
   {
     city: { type: String, default: "" },
     messages: [messageSchema],
+    user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+    },
   },
   { timestamps: true }
 );

@@ -17,6 +17,10 @@ const searchSchema = new mongoose.Schema(
       country: String,
     },
     newsHeadlines: [String],
+    user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+    }
   },
   { timestamps: true }
 );

@@ -9,8 +9,8 @@ export const saveSearch = async (req, res) => {
 
   try {
     const doc = await Search.findOneAndUpdate(
-      { city: city.toLowerCase() },
-      { city: city.toLowerCase(), weather, newsHeadlines, updatedAt: new Date() },
+      { city: city.toLowerCase(), user: req.user._id },
+      { city: city.toLowerCase(), weather, newsHeadlines, user: req.user._id, updatedAt: new Date() },
       { upsert: true, new: true }
     );
     res.status(201).json(doc);
@@ -22,7 +22,7 @@ export const saveSearch = async (req, res) => {
 // ── GET /api/history ──────────────────────────────────────────────────────────
 export const getHistory = async (req, res) => {
   try {
-    const searches = await Search.find()
+    const searches = await Search.find({ user: req.user._id })
       .sort({ updatedAt: -1 })
       .limit(20)
       .select("city weather newsHeadlines updatedAt");
@@ -35,7 +35,7 @@ export const getHistory = async (req, res) => {
 // ── DELETE /api/history/:id ───────────────────────────────────────────────────
 export const deleteSearch = async (req, res) => {
   try {
-    await Search.findByIdAndDelete(req.params.id);
+    await Search.findOneAndDelete({ _id: req.params.id, user: req.user._id });
     res.json({ message: "Deleted" });
   } catch (err) {
     res.status(500).json({ error: err.message });

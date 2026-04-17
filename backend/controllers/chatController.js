@@ -62,7 +62,7 @@ async function fetchNewsContext(city) {
 
 // ── POST /api/chat ────────────────────────────────────────────────────────────
 export const chat = async (req, res) => {
-  const { message, city = "", chatId } = req.body;
+  const { message, city = "", chatId, history = [] } = req.body;
 
   if (!message) return res.status(400).json({ error: "Message is required" });
 
@@ -82,32 +82,42 @@ export const chat = async (req, res) => {
     "Be concise, helpful, and conversational.\n\n" +
     (contextParts.length ? "Live data:\n" + contextParts.join("\n") : "");
 
-  // Load or create chat session
-  let chatDoc;
-  if (chatId) {
-    chatDoc = await Chat.findById(chatId);
-  }
-  if (!chatDoc) {
-    chatDoc = new Chat({ city, messages: [] });
-  }
-
-  // Add user message
-  chatDoc.messages.push({ role: "user", content: message });
-
-  // Build messages array for Mistral
-  const mistralMessages = [
-    { role: "system", content: systemContent },
-    ...chatDoc.messages.map((m) => ({ role: m.role, content: m.content })),
-  ];
-
   try {
+    let mistralMessages;
+    let newChatId = null;
+    let chatDoc = null;
+
+    if (req.user) {
+      // User is logged in, use DB
+      if (chatId) {
+        chatDoc = await Chat.findOne({ _id: chatId, user: req.user._id });
+      }
+      if (!chatDoc) {
+        chatDoc = new Chat({ city, messages: [], user: req.user._id });
+      }
+
+      chatDoc.messages.push({ role: "user", content: message });
+      mistralMessages = [
+        { role: "system", content: systemContent },
+        ...chatDoc.messages.map((m) => ({ role: m.role, content: m.content })),
+      ];
+    } else {
+      // Guest, use provided history
+      mistralMessages = [
+        { role: "system", content: systemContent },
+        ...history.map((m) => ({ role: m.role, content: m.content })),
+      ];
+    }
+
     const reply = await askMistral(mistralMessages);
 
-    // Save assistant reply
-    chatDoc.messages.push({ role: "assistant", content: reply });
-    await chatDoc.save();
+    if (req.user && chatDoc) {
+      chatDoc.messages.push({ role: "assistant", content: reply });
+      await chatDoc.save();
+      newChatId = chatDoc._id;
+    }
 
-    res.json({ reply, chatId: chatDoc._id });
+    res.json({ reply, chatId: newChatId });
   } catch (err) {
     console.error("Mistral error:", err.response?.data || err.message);
     res.status(500).json({ error: "AI service unavailable" });
@@ -117,7 +127,7 @@ export const chat = async (req, res) => {
 // ── GET /api/chat/:id ─────────────────────────────────────────────────────────
 export const getChatHistory = async (req, res) => {
   try {
-    const chat = await Chat.findById(req.params.id);
+    const chat = await Chat.findOne({ _id: req.params.id, user: req.user._id });
     if (!chat) return res.status(404).json({ error: "Chat not found" });
     res.json(chat);
   } catch (err) {
