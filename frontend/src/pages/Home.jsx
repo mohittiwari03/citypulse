@@ -34,7 +34,7 @@ export default function Home() {
             <Zap size={11} />
             Powered by Mistral AI + Real-Time APIs
           </div>
-          <h1 className="text-5xl sm:text-6xl font-extrabold mb-3 leading-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-3 leading-tight">
             Your City,{" "}
             <span className="text-gold">Intelligently</span>
           </h1>

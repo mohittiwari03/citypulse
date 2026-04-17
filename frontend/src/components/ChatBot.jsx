@@ -91,7 +91,7 @@ export default function ChatBot({ city }) {
       {/* Floating toggle button */}
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-2xl bg-gold
+        className="fixed bottom-6 right-4 sm:right-6 z-50 w-13 h-13 w-[52px] h-[52px] rounded-2xl bg-gold
                    flex items-center justify-center shadow-lg shadow-gold/20
                    hover:bg-yellow-300 active:scale-95 transition-all"
       >
@@ -100,8 +100,10 @@ export default function ChatBot({ city }) {
 
       {/* Chat panel */}
       {open && (
-        <div className="fixed bottom-24 right-6 z-50 w-80 sm:w-96 h-[520px]
-                        card flex flex-col shadow-2xl shadow-black/50 animate-fade-up">
+        <div className="fixed z-50 card flex flex-col shadow-2xl shadow-black/50 animate-fade-up
+                        bottom-0 left-0 right-0 h-[70vh]
+                        sm:bottom-24 sm:right-6 sm:left-auto sm:w-96 sm:h-[520px]
+                        rounded-t-2xl sm:rounded-2xl">
           {/* Header */}
           <div className="flex items-center gap-2.5 px-4 py-3 border-b border-border">
             <div className="w-8 h-8 rounded-xl bg-teal/20 flex items-center justify-center">

@@ -106,7 +106,7 @@ export default function WeatherCard({ data }) {
 
       {/* Temperature */}
       <div className="flex items-end gap-3 mb-5 pb-5 border-b border-border relative">
-        <span className="text-7xl font-extrabold leading-none" style={{ color: theme.accent }}>
+        <span className="text-5xl sm:text-7xl font-extrabold leading-none" style={{ color: theme.accent }}>
           {data.temp}°
         </span>
         <div className="mb-2">

@@ -66,18 +66,18 @@ export default function SearchBar({ onSearch, loading }) {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Enter any city — Mumbai, London, Tokyo..."
-              className="input-field pl-11 pr-32 h-14 text-base rounded-2xl"
+              placeholder="Search a city..."
+              className="input-field pl-11 pr-24 sm:pr-32 h-14 text-sm sm:text-base rounded-2xl"
               disabled={loading}
             />
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className="absolute right-2 top-1/2 -translate-y-1/2 btn-gold py-2 px-5 rounded-xl
-                         flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
+              className="absolute right-2 top-1/2 -translate-y-1/2 btn-gold py-2 px-3 sm:px-5 rounded-xl
+                         flex items-center gap-1.5 sm:gap-2 disabled:opacity-40 disabled:cursor-not-allowed text-sm"
             >
-              {loading ? <Loader2 size={16} className="animate-spin" /> : <Search size={16} />}
-              {loading ? "Searching..." : "Search"}
+              {loading ? <Loader2 size={15} className="animate-spin" /> : <Search size={15} />}
+              <span className="hidden xs:inline sm:inline">{loading ? "Searching..." : "Search"}</span>
             </button>
           </div>
         </div>
