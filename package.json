@@ -1,0 +1,13 @@
+{
+  "name": "citypulse",
+  "version": "1.0.0",
+  "description": "CityPulse Monorepo",
+  "scripts": {
+    "start": "cd backend && npm start",
+    "build": "cd frontend && npm install && npm run build && cd ../backend && npm install",
+    "dev": "concurrently \"cd frontend && npm run dev\" \"cd backend && npm run dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.0"
+  }
+}
