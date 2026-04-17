@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #080c10;
+    color: #c8d8e8;
+    font-family: "Syne", sans-serif;
+  }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #080c10; }
+  ::-webkit-scrollbar-thumb { background: #1e2d3d; border-radius: 4px; }
+}
+
+@layer components {
+  .card { @apply bg-surface border border-border rounded-2xl; }
+  .btn-gold { @apply bg-gold text-bg font-bold px-5 py-2.5 rounded-xl hover:bg-yellow-300 active:scale-95 transition-all duration-150; }
+  .btn-ghost { @apply border border-border text-ink px-4 py-2 rounded-xl hover:border-gold hover:text-gold transition-all duration-150; }
+  .input-field { @apply bg-surface border border-border rounded-xl px-4 py-3 text-ink placeholder-muted focus:outline-none focus:border-gold transition-colors duration-200 font-mono text-sm w-full; }
+}
