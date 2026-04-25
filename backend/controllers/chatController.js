@@ -96,8 +96,7 @@ const systemContent =
   "3. Keep answers concise, helpful, and conversational.\n" +
   "4. Use provided live data first when available.\n" +
   "5. If no city is specified, ask the user for the city name.\n\n" +
-  "Refusal format:\n" +
-  "'I can only help with city information and weather updates. Please ask about a city or weather.'";
+  "Refusal format:\n" ;
 
   try {
     let mistralMessages;
