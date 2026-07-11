@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { Thermometer } from "lucide-react";
 
 // ── Condition colour themes (on dark card) ─────────────────────────────────
 function getTheme(icon = "") {

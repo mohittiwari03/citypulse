@@ -16,12 +16,17 @@ export default function Navbar() {
     navigate("/login");
   }
 
+  const closeMenu = () => setMenuOpen(false);
+
+  const navLinkClass = (to) =>
+    `px-4 py-2 rounded-xl text-sm font-semibold flex items-center gap-1.5 transition-all ${
+      pathname === to ? "bg-gold/10 text-gold" : "text-muted hover:text-ink"
+    }`;
+
   const navLink = (to, label, icon) => (
     <Link
       to={to}
-      className={`px-4 py-2 rounded-xl text-sm font-semibold flex items-center gap-1.5 transition-all ${
-        pathname === to ? "bg-gold/10 text-gold" : "text-muted hover:text-ink"
-      }`}
+      className={navLinkClass(to)}
     >
       {icon}
       {label}
@@ -50,7 +55,7 @@ export default function Navbar() {
         </Link>
 
         {/* Nav */}
-        <div className="flex items-center gap-1">
+        <div className="hidden sm:flex items-center gap-1">
           {navLink("/", "Dashboard", null)}
           {navLink("/history", "History", <History size={14} />)}
 

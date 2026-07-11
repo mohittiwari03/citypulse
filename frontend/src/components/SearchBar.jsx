@@ -62,30 +62,17 @@ export default function SearchBar({ onSearch, loading }) {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-<<<<<<< HEAD
-              placeholder="Enter any city — Mumbai, London, Tokyo..."
-              className="input-field pl-12 pr-32 h-14 text-base rounded-2xl"
-=======
               placeholder="Search a city..."
               className="input-field pl-11 pr-24 sm:pr-32 h-14 text-sm sm:text-base rounded-2xl"
->>>>>>> 525512e06bc11e8dc77691d1a8ed065dfb501ff4
               disabled={loading}
             />
             <button
               type="submit"
               disabled={loading || !input.trim()}
-<<<<<<< HEAD
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-blue-600 hover:bg-blue-500 hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] text-white font-semibold py-2 px-5 h-10 rounded-xl flex items-center gap-2 transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed"
-            >
-              {loading ? <Loader2 size={16} className="animate-spin" /> : null}
-              {loading ? "Searching..." : "Search"}
-=======
-              className="absolute right-2 top-1/2 -translate-y-1/2 btn-gold py-2 px-3 sm:px-5 rounded-xl
-                         flex items-center gap-1.5 sm:gap-2 disabled:opacity-40 disabled:cursor-not-allowed text-sm"
+              className="absolute right-2 top-1/2 -translate-y-1/2 btn-gold py-2 px-3 sm:px-5 rounded-xl flex items-center gap-1.5 sm:gap-2 disabled:opacity-40 disabled:cursor-not-allowed text-sm"
             >
               {loading ? <Loader2 size={15} className="animate-spin" /> : <Search size={15} />}
               <span className="hidden xs:inline sm:inline">{loading ? "Searching..." : "Search"}</span>
->>>>>>> 525512e06bc11e8dc77691d1a8ed065dfb501ff4
             </button>
           </div>
         </div>

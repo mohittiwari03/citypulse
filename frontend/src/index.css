@@ -49,6 +49,11 @@
            hover:bg-blue-500 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] active:scale-[0.97] transition-all duration-150;
   }
 
+  .btn-gold {
+    @apply bg-gold text-bg font-semibold px-5 py-2 rounded-xl flex items-center justify-center
+           hover:bg-yellow-400 hover:shadow-[0_0_15px_rgba(226,184,87,0.35)] active:scale-[0.97] transition-all duration-150;
+  }
+
   .btn-ghost {
     @apply border border-white/10 text-white/80 px-4 py-2 rounded-xl
            hover:border-blue-500 hover:text-white hover:bg-white/5 transition-all duration-150;

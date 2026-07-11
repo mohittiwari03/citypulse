@@ -21,6 +21,7 @@ export default {
         ink:          "#f8fafc",
         "ink-light":  "#FFFFFF",
         "danger":     "#EF4444",
+        gold:         "#e2b857",
       },
       borderRadius: {
         "2xl": "1.25rem",
