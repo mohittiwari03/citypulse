@@ -32,22 +32,22 @@ export default function Login() {
       {/* Background glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-96 h-96
-                        bg-gold/5 rounded-full blur-3xl" />
+                        bg-accent/5 rounded-full blur-3xl" />
       </div>
 
       <div className="w-full max-w-sm relative">
         {/* Logo */}
-        <div className="flex items-center justify-center gap-2 mb-8">
-          <div className="w-9 h-9 rounded-xl bg-gold flex items-center justify-center">
-            <Zap size={18} className="text-bg" />
+        <div className="flex items-center justify-center gap-2.5 mb-8">
+          <div className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm flex items-center justify-center">
+            <Zap size={18} className="text-white" />
           </div>
-          <span className="text-2xl font-extrabold">
-            City<span className="text-gold">Pulse</span>
+          <span className="text-2xl font-semibold text-white tracking-tight">
+            CityPulse
           </span>
         </div>
 
         <div className="card p-8">
-          <h1 className="text-xl font-extrabold text-ink mb-1">Welcome back</h1>
+          <h1 className="text-xl font-bold text-white mb-1">Welcome back</h1>
           <p className="text-sm text-muted mb-6">Sign in to your account</p>
 
           <form onSubmit={submit} className="flex flex-col gap-4">
@@ -75,7 +75,7 @@ export default function Login() {
               </button>
             </div>
 
-            <button type="submit" disabled={loading} className="btn-gold w-full flex items-center justify-center gap-2 h-11 mt-1">
+            <button type="submit" disabled={loading} className="btn-primary w-full flex items-center justify-center gap-2 h-11 mt-1">
               {loading ? <Loader2 size={16} className="animate-spin" /> : null}
               {loading ? "Signing in..." : "Sign in"}
             </button>
@@ -83,7 +83,7 @@ export default function Login() {
 
           <p className="text-center text-sm text-muted mt-5">
             No account?{" "}
-            <Link to="/register" className="text-gold hover:underline font-semibold">
+            <Link to="/register" className="text-accent hover:underline font-semibold">
               Create one
             </Link>
           </p>

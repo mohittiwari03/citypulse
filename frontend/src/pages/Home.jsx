@@ -11,7 +11,8 @@ import { useCity }      from "../hooks/useCity";
 
 function FeaturePill({ icon, label }) {
   return (
-    <div className="flex items-center gap-1.5 text-xs font-mono text-muted border border-border px-3 py-1.5 rounded-full">
+    <div className="flex items-center gap-1.5 text-xs font-medium text-white/70 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm"
+         style={{ border: "1px solid rgba(255,255,255,0.1)" }}>
       {icon}{label}
     </div>
   );
@@ -23,38 +24,41 @@ export default function Home() {
   return (
     <div className="min-h-screen pt-24 pb-24 px-4 relative">
       {/* Animated weather background */}
-      <WeatherBackground icon={weather?.icon} />
 
       <div className="max-w-6xl mx-auto relative z-10">
 
-        {/* Hero */}
-        <div className="text-center mb-10 animate-fade-up">
-          <div className="inline-flex items-center gap-2 bg-gold/10 border border-gold/30
-                          text-gold text-xs font-mono px-3 py-1.5 rounded-full mb-4">
-            <Zap size={11} />
-            Powered by Mistral AI + Real-Time APIs
+        {/* Hero - Hidden when showing search results */}
+        {!weather && (
+          <div className="text-center mb-10 animate-fade-up">
+            <div className="inline-flex items-center gap-2 bg-white/10
+                            text-blue-300 text-xs font-medium px-3 py-1.5 rounded-full mb-4"
+                 style={{ border: "1px solid rgba(255,255,255,0.1)" }}>
+              <Zap size={11} />
+              Powered by Mistral AI + Real-Time APIs
+            </div>
+            <h1 className="text-5xl sm:text-6xl font-extrabold mb-3 leading-tight text-white">
+              Your City,{" "}
+              <span className="text-blue-300">Intelligently</span>
+            </h1>
+            <p className="text-white/60 text-lg max-w-xl mx-auto mb-6">
+              Real-time weather, live news, and an AI assistant — all for any city in the world.
+            </p>
+            <div className="flex items-center justify-center flex-wrap gap-2 mb-8">
+              <FeaturePill icon={<Cloud size={11} />}     label="Live Weather" />
+              <FeaturePill icon={<Newspaper size={11} />}  label="Top News" />
+              <FeaturePill icon={<Bot size={11} />}        label="AI Chat" />
+            </div>
           </div>
-          <h1 className="text-5xl sm:text-6xl font-extrabold mb-3 leading-tight">
-            Your City,{" "}
-            <span className="text-gold">Intelligently</span>
-          </h1>
-          <p className="text-muted text-lg max-w-xl mx-auto mb-6">
-            Real-time weather, live news, and an AI assistant — all for any city in the world.
-          </p>
-          <div className="flex items-center justify-center flex-wrap gap-2 mb-8">
-            <FeaturePill icon={<Cloud size={11} />}     label="Live Weather" />
-            <FeaturePill icon={<Newspaper size={11} />}  label="Top News" />
-            <FeaturePill icon={<Bot size={11} />}        label="AI Chat" />
-          </div>
-        </div>
+        )}
 
         {/* Search */}
         <SearchBar onSearch={search} loading={loading} />
 
         {/* Error */}
         {error && (
-          <div className="mt-6 max-w-md mx-auto text-center text-sm text-red-400
-                          bg-red-400/10 border border-red-400/20 rounded-xl px-4 py-3">
+          <div className="mt-6 max-w-md mx-auto text-center text-sm text-danger
+                          bg-red-50 rounded-xl px-4 py-3"
+               style={{ border: "1px solid rgba(239,68,68,0.15)" }}>
             {error}
           </div>
         )}
@@ -88,11 +92,11 @@ export default function Home() {
         {/* Empty state */}
         {!loading && !weather && !error && (
           <div className="mt-16 text-center">
-            <div className="w-20 h-20 rounded-3xl bg-surface border border-border
-                            flex items-center justify-center mx-auto mb-4">
+            <div className="w-20 h-20 rounded-3xl bg-white
+                            flex items-center justify-center mx-auto mb-4 shadow-card">
               <Cloud size={32} className="text-muted" />
             </div>
-            <p className="text-muted font-mono text-sm">Search any city above to get started</p>
+            <p className="text-muted text-sm">Search any city above to get started</p>
           </div>
         )}
       </div>

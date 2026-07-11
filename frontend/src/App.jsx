@@ -15,11 +15,14 @@ export default function App() {
           position="top-right"
           toastOptions={{
             style: {
-              background: "#0f1720",
-              border: "1px solid #1e2d3d",
-              color: "#c8d8e8",
-              fontFamily: "'JetBrains Mono', monospace",
+              background: "rgba(255,255,255,0.9)",
+              backdropFilter: "blur(12px)",
+              border: "1px solid rgba(0,0,0,0.06)",
+              color: "#1A1F36",
+              fontFamily: "'Inter', sans-serif",
               fontSize: "13px",
+              boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
+              borderRadius: "12px",
             },
           }}
         />

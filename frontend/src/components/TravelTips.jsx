@@ -24,35 +24,30 @@ export default function TravelTips({ weather }) {
   return (
     <div className="card p-5 animate-fade-up">
       <div className="flex items-center gap-2 mb-4">
-        <Sparkles size={16} className="text-gold" />
-        <h2 className="font-bold text-ink">AI Travel Tips</h2>
-        <span className="ml-auto text-xs font-mono text-muted bg-surface border border-border px-2 py-0.5 rounded-full">
-          Mistral AI
-        </span>
+        <Sparkles size={18} className="text-blue-400" />
+        <h2 className="font-semibold text-white">AI travel tips</h2>
       </div>
 
       {loading && (
         <div className="flex items-center gap-2 text-sm text-muted py-4">
-          <Loader2 size={14} className="animate-spin text-gold" />
-          <span className="font-mono text-xs">Generating tips for {weather.city}...</span>
+          <Loader2 size={14} className="animate-spin text-blue-400" />
+          <span className="text-xs">Generating tips for {weather.city}...</span>
         </div>
       )}
 
       {error && (
-        <p className="text-sm text-red-400 font-mono">{error}</p>
+        <p className="text-sm text-danger">{error}</p>
       )}
 
       {!loading && tips.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <div className="flex flex-col gap-3">
           {tips.map((t, i) => (
             <div
               key={i}
-              className="flex items-start gap-3 p-3 rounded-xl bg-bg/50 border border-border
-                         hover:border-gold/30 transition-colors animate-fade-up"
+              className="p-4 rounded-2xl bg-slate-900/35 border border-blue-500/10 hover:border-blue-500/25 transition-all duration-200 animate-fade-up"
               style={{ animationDelay: `${i * 80}ms` }}
             >
-              <span className="text-xl leading-none mt-0.5">{t.icon}</span>
-              <p className="text-sm text-ink/80 leading-snug">{t.tip}</p>
+              <p className="text-sm text-white font-medium leading-relaxed">{t.tip}</p>
             </div>
           ))}
         </div>
