@@ -50,17 +50,19 @@ export default function WeatherCard({ data }) {
           {data.country} · {data.city}
         </div>
 
-        {/* Temperature + Icon Row */}
-        <div className="flex items-center gap-3">
-          <span className="text-7xl font-bold leading-none text-white tracking-tighter">
-            {data.temp}°
-          </span>
-          <img
-            src={iconUrl}
-            alt={data.description}
-            className="w-16 h-16 drop-shadow-[0_4px_10px_rgba(255,255,255,0.1)]"
-          />
+      {/* Temperature */}
+      <div className="flex items-end gap-3 mb-5 pb-5 border-b border-border relative">
+        <span className="text-7xl font-extrabold leading-none" style={{ color: theme.accent }}>
+          {data.temp}°
+        </span>
+        <div className="mb-2">
+          <p className="text-muted text-xs font-mono">CELSIUS</p>
+          <p className="text-ink text-sm flex items-center gap-1">
+            <Thermometer size={13} style={{ color: theme.accent }} />
+            Feels {data.feels_like}°C
+          </p>
         </div>
+      </div>
 
         {/* Feels Like description */}
         <div className="text-sm font-medium text-white/60">

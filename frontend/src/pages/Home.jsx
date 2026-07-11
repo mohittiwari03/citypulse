@@ -49,7 +49,23 @@ export default function Home() {
               <FeaturePill icon={<Bot size={11} />}        label="AI Chat" />
             </div>
           </div>
+<<<<<<< HEAD
         )}
+=======
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-3 leading-tight">
+            Your City,{" "}
+            <span className="text-gold">Intelligently</span>
+          </h1>
+          <p className="text-muted text-lg max-w-xl mx-auto mb-6">
+            Real-time weather, live news, and an AI assistant — all for any city in the world.
+          </p>
+          <div className="flex items-center justify-center flex-wrap gap-2 mb-8">
+            <FeaturePill icon={<Cloud size={11} />}     label="Live Weather" />
+            <FeaturePill icon={<Newspaper size={11} />}  label="Top News" />
+            <FeaturePill icon={<Bot size={11} />}        label="AI Chat" />
+          </div>
+        </div>
+>>>>>>> 525512e06bc11e8dc77691d1a8ed065dfb501ff4
 
         {/* Search */}
         <SearchBar onSearch={search} loading={loading} />

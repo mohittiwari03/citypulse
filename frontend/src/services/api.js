@@ -32,7 +32,47 @@ export const fetchTips = (weather) =>
     },
   }).then(r => r.data);
 
-export const sendChat       = (message, city, chatId) => api.post("/chat", { message, city, chatId }).then(r => r.data);
-export const saveSearch     = (city, weather, newsHeadlines) => api.post("/history", { city, weather, newsHeadlines }).then(r => r.data);
-export const fetchHistory   = () => api.get("/history").then(r => r.data);
-export const deleteHistory  = (id) => api.delete(`/history/${id}`).then(r => r.data);
+export const fetchHistory = async () => {
+  const user = JSON.parse(localStorage.getItem("citypulse_user") || "null");
+  if (user?.token) return api.get("/history").then(r => r.data);
+  return JSON.parse(localStorage.getItem("citypulse_history") || "[]");
+};
+
+export const saveSearch = async (city, weather, newsHeadlines) => {
+  const user = JSON.parse(localStorage.getItem("citypulse_user") || "null");
+  if (user?.token) return api.post("/history", { city, weather, newsHeadlines }).then(r => r.data);
+
+  let history = JSON.parse(localStorage.getItem("citypulse_history") || "[]");
+  const existingIndex = history.findIndex(h => h.city.toLowerCase() === city.toLowerCase());
+  
+  const newEntry = {
+    _id: existingIndex !== -1 ? history[existingIndex]._id : Date.now().toString(),
+    city: city.toLowerCase(),
+    weather,
+    newsHeadlines,
+    updatedAt: new Date().toISOString()
+  };
+
+  if (existingIndex !== -1) {
+    history[existingIndex] = newEntry;
+  } else {
+    history.push(newEntry);
+  }
+  history.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+  history = history.slice(0, 20); // keep recent 20
+  localStorage.setItem("citypulse_history", JSON.stringify(history));
+  return newEntry;
+};
+
+export const deleteHistory = async (id) => {
+  const user = JSON.parse(localStorage.getItem("citypulse_user") || "null");
+  if (user?.token) return api.delete(`/history/${id}`).then(r => r.data);
+  
+  let history = JSON.parse(localStorage.getItem("citypulse_history") || "[]");
+  history = history.filter(h => h._id !== id);
+  localStorage.setItem("citypulse_history", JSON.stringify(history));
+  return { message: "Deleted" };
+};
+
+export const sendChat = (message, city, chatId, history = []) => 
+  api.post("/chat", { message, city, chatId, history }).then(r => r.data);

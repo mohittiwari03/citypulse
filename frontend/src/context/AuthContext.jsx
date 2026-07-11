@@ -10,18 +10,47 @@ if (baseURL !== "http://localhost:5000/api" && !baseURL.endsWith("/api")) {
 const API = `${baseURL}/auth`;
 
 export function AuthProvider({ children }) {
-  const [user, setUser]       = useState(null);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   // Restore session on mount
+  // useEffect(() => {
+  //   const stored = localStorage.getItem("citypulse_user");
+  //   if (stored) setUser(JSON.parse(stored));
+  //   setLoading(false);
+  // }, []);
+
+    // Check login status from backend
   useEffect(() => {
-    const stored = localStorage.getItem("citypulse_user");
-    if (stored) setUser(JSON.parse(stored));
-    setLoading(false);
+    const checkUser = async () => {
+      try {
+        const stored = localStorage.getItem("citypulse_user");
+        if (!stored) {
+          setLoading(false);
+          return;
+        }
+        const userStored = JSON.parse(stored);
+        const { data } = await axios.get(`${API}/me`, {
+          headers: { Authorization: `Bearer ${userStored.token}` }
+        });
+        setUser({ ...data, token: userStored.token });
+      } catch {
+        setUser(null);
+        localStorage.removeItem("citypulse_user");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkUser();
   }, []);
 
   const register = async (name, email, password) => {
-    const { data } = await axios.post(`${API}/register`, { name, email, password });
+    const { data } = await axios.post(`${API}/register`, {
+      name,
+      email,
+      password,
+    });
     localStorage.setItem("citypulse_user", JSON.stringify(data));
     setUser(data);
     return data;

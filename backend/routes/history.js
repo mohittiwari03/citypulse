@@ -4,11 +4,12 @@ import {
   getHistory,
   deleteSearch,
 } from "../controllers/historyController.js";
+import protect from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.post("/", saveSearch);
-router.get("/", getHistory);
-router.delete("/:id", deleteSearch);
+router.post("/", protect, saveSearch);
+router.get("/", protect, getHistory);
+router.delete("/:id", protect, deleteSearch);
 
 export default router;

@@ -65,12 +65,13 @@ export default function ChatBot({ city }) {
     if (!input.trim() || loading) return;
 
     const userMsg = { role: "user", content: input.trim() };
-    setMessages((prev) => [...prev, userMsg]);
+    const updatedMessages = [...messages, userMsg];
+    setMessages(updatedMessages);
     setInput("");
     setLoading(true);
 
     try {
-      const data = await sendChat(input.trim(), city, chatId);
+      const data = await sendChat(input.trim(), city, chatId, updatedMessages);
       setChatId(data.chatId);
       setMessages((prev) => [
         ...prev,
@@ -91,9 +92,9 @@ export default function ChatBot({ city }) {
       {/* Floating toggle button */}
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-2xl bg-blue-600
-                   flex items-center justify-center shadow-lg hover:shadow-[0_0_20px_rgba(59,130,246,0.5)]
-                   hover:bg-blue-500 active:scale-95 transition-all duration-150"
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-2xl bg-gold
+                   flex items-center justify-center shadow-lg shadow-gold/20
+                   hover:bg-yellow-300 active:scale-95 transition-all"
       >
         {open ? <X size={20} className="text-white" /> : <MessageSquare size={20} className="text-white" />}
       </button>
@@ -101,7 +102,7 @@ export default function ChatBot({ city }) {
       {/* Chat panel */}
       {open && (
         <div className="fixed bottom-24 right-6 z-50 w-80 sm:w-96 h-[520px]
-                        card flex flex-col shadow-2xl animate-fade-up bg-slate-900/95 backdrop-blur-xl border border-white/10">
+                        card flex flex-col shadow-2xl shadow-black/50 animate-fade-up">
           {/* Header */}
           <div className="flex items-center gap-2.5 px-4 py-3 border-b border-white/10">
             <div className="w-8 h-8 rounded-xl bg-blue-600/10 border border-blue-500/15 flex items-center justify-center">
@@ -113,7 +114,7 @@ export default function ChatBot({ city }) {
                 {city ? `Context: ${city}` : "No city selected"}
               </p>
             </div>
-            <div className="ml-auto w-2 h-2 rounded-full bg-green-400 animate-pulse-slow" />
+            <div className="ml-auto w-2 h-2 rounded-full bg-teal animate-pulse-slow" />
           </div>
 
           {/* Messages */}
