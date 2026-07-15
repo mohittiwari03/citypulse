@@ -17,6 +17,17 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// Intercept network/down errors
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (!error.response || error.code === "ERR_NETWORK" || error.message === "Network Error") {
+      window.dispatchEvent(new CustomEvent("api-server-down"));
+    }
+    return Promise.reject(error);
+  }
+);
+
 export const fetchWeather  = (city) => api.get("/weather",  { params: { city } }).then(r => r.data);
 export const fetchNews     = (city) => api.get("/news",     { params: { city } }).then(r => r.data);
 export const fetchForecast = (city) => api.get("/forecast", { params: { city } }).then(r => r.data);
@@ -76,3 +87,5 @@ export const deleteHistory = async (id) => {
 
 export const sendChat = (message, city, chatId, history = []) => 
   api.post("/chat", { message, city, chatId, history }).then(r => r.data);
+
+export const checkHealth = () => api.get("/health").then(r => r.data);

@@ -24,6 +24,8 @@ const app = express();
 app.use(cors({ origin: ["http://localhost:5173", "https://citypulse-lemon.vercel.app"] }));
 app.use(express.json());
 
+app.get("/api/health", (req, res) => res.json({ status: "ok" }));
+
 app.use("/api/weather",  weatherRoutes);
 app.use("/api/news",     newsRoutes);
 app.use("/api/chat",     chatRoutes);

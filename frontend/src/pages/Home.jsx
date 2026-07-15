@@ -31,14 +31,14 @@ export default function Home() {
         {!weather && (
           <div className="text-center mb-10 animate-fade-up">
             <div className="inline-flex items-center gap-2 bg-white/10
-                            text-blue-300 text-xs font-medium px-3 py-1.5 rounded-full mb-4"
+                            text-blue-400 text-xs font-medium px-3 py-1.5 rounded-full mb-4"
                  style={{ border: "1px solid rgba(255,255,255,0.1)" }}>
               <Zap size={11} />
               Powered by Mistral AI + Real-Time APIs
             </div>
             <h1 className="text-5xl sm:text-6xl font-extrabold mb-3 leading-tight text-white">
-              Your City,{" "}
-              <span className="text-blue-300">Intelligently</span>
+              Search City,{" "}
+              <span className="text-blue-400">Intelligently</span>
             </h1>
             <p className="text-white/60 text-lg max-w-xl mx-auto mb-6">
               Real-time weather, live news, and an AI assistant — all for any city in the world.
